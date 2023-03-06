@@ -24,11 +24,10 @@ public class SecurityConf {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
-                .requestMatchers("/add").permitAll()
-                .requestMatchers("/get").authenticated()
-                .and()
-                .csrf().disable()
+        http.authorizeHttpRequests(e -> e
+                        .requestMatchers("/add").permitAll()
+                        .requestMatchers("/get").authenticated())
+                .csrf(e -> e.disable())
                 .httpBasic();
 
         return http.build();
